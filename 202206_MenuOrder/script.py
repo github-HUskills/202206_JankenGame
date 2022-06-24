@@ -1,42 +1,68 @@
-# MenuItemクラスの読み込み
-from menu_item import MenuItem
+# Foodクラス, Drinkクラスの読み込み
+from food import Food
+from drink import Drink
 
 # 自作モジュールの読み込み
 import utils
 
-# MenuItemクラスのインスタンス作成 ＆ インスタンス変数に値格納
-menu_item1 = MenuItem("サンドウィッチ", 500)
-menu_item2 = MenuItem("チョコケーキ", 400)
-menu_item3 = MenuItem("コーヒー", 300)
-menu_item4 = MenuItem("オレンジジュース", 200)
+# Foodクラスのインスタンス作成 ＆ インスタンス変数に値格納
+food1 = Food("サンドウィッチ", 500, 330)
+food2 = Food("チョコケーキ", 400, 450)
+food3 = Food("シュークリーム", 200, 180)
 
-# MenuItemクラスのインスタンスのリスト作成
-menu_items = [menu_item1, menu_item2, menu_item3, menu_item4]
+# Foodクラスのインスタンスのリスト作成
+foods = [food1, food2, food3]
 
-# メニュー表示番号(初期値)
-index = 0
-# インスタンスのリストをfor文で繰り返してメニュー表示
-for item in menu_items:
-    print(str(index) + "." + item.info())
-    index += 1
+# Drinkクラスのインスタンス作成 ＆ インスタンス変数に値格納
+drink1 = Drink("オレンジジュース", 200, 350)
+drink2 = Drink("コーヒー", 300, 180)
+drink3 = Drink("エスプレッソ", 300, 30)
+
+# Drinkクラスのインスタンスのリスト作成
+drinks = [drink1, drink2, drink3]
+
+print("◆ 食べ物メニュー")
+utils.view_menu_items(foods)
+
+print("◆ 飲み物メニュー")
+utils.view_menu_items(drinks)
 
 print("---------------")
 
-# メニュー番号の取得（0～4の値）
-oder = input("メニューの番号を入力してください：")
+# 食べ物メニュー番号の取得（0～4の値）
+food_oder = input("食べ物メニューの番号を入力してください：")
 
-# メニュー番号が正常値かチェック
-if utils.validate(int(oder), len(menu_items)):
-    # メニュー番号をもとにMenuItemクラスのインスタンスを取得
-    select_menu = menu_items[int(oder)]
-    print("選択されたメニュー：" + select_menu.name)
+# 食べ物メニュー番号が正常値かチェック
+if utils.validate(int(food_oder), len(foods)):
+    # メニュー番号をもとにFoodクラスのインスタンスを取得
+    select_food_menu = foods[int(food_oder)]
+    print("選択されたメニュー：" + select_food_menu.name)
 
     # 注文個数の取得
-    count = input("個数を入力してください（3つ以上で1割引き）：")
+    food_count = input("個数を入力してください（3つ以上で1割引き）：")
 
-    # 注文個数をもとに合計金額の計算
-    result = select_menu.get_total_price(int(count))
-    print("合計は" + str(result) + "円です")
+    print("---------------")
 
+    # 飲み物メニュー番号の取得（0～4の値）
+    drink_oder = input("飲み物メニューの番号を入力してください：")
+
+    # メニュー番号が正常値かチェック
+    if utils.validate(int(drink_oder), len(drinks)):
+        # メニュー番号をもとにDrinkクラスのインスタンスを取得
+        select_drink_menu = drinks[int(drink_oder)]
+        print("選択されたメニュー：" + select_drink_menu.name)
+
+        # 注文個数の取得
+        drink_count = input("個数を入力してください（3つ以上で1割引き）：")
+
+        print("---------------")
+
+        # 注文個数をもとに合計金額の計算
+        food_result = select_food_menu.get_total_price(int(food_count))
+        drink_result = select_drink_menu.get_total_price(int(drink_count))
+        print("合計は" + str(food_result + drink_result) + "円です")
+
+    else:
+        print("error：正しい値を入力してください")
 else:
     print("error：正しい値を入力してください")
