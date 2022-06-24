@@ -29,11 +29,12 @@ utils.view_menu_items(drinks)
 
 print("---------------")
 
-# 食べ物メニュー番号の取得（0～4の値）
-food_oder = input("食べ物メニューの番号を入力してください：")
+try:
+    # 食べ物メニュー番号の取得（0～4の値）とバリエーションチェック
+    food_oder = input("食べ物メニューの番号を入力してください：")
+    if utils.validate(int(food_oder), len(foods)):
+        raise Exception("error：正しい値を入力してください")
 
-# 食べ物メニュー番号が正常値かチェック
-if utils.validate(int(food_oder), len(foods)):
     # メニュー番号をもとにFoodクラスのインスタンスを取得
     select_food_menu = foods[int(food_oder)]
     print("選択されたメニュー：" + select_food_menu.name)
@@ -43,26 +44,24 @@ if utils.validate(int(food_oder), len(foods)):
 
     print("---------------")
 
-    # 飲み物メニュー番号の取得（0～4の値）
+    # 飲み物メニュー番号の取得（0～4の値）とバリエーションチェック
     drink_oder = input("飲み物メニューの番号を入力してください：")
-
-    # メニュー番号が正常値かチェック
     if utils.validate(int(drink_oder), len(drinks)):
-        # メニュー番号をもとにDrinkクラスのインスタンスを取得
-        select_drink_menu = drinks[int(drink_oder)]
-        print("選択されたメニュー：" + select_drink_menu.name)
+        raise Exception("error：正しい値を入力してください")
 
-        # 注文個数の取得
-        drink_count = input("個数を入力してください（3つ以上で1割引き）：")
+    # メニュー番号をもとにDrinkクラスのインスタンスを取得
+    select_drink_menu = drinks[int(drink_oder)]
+    print("選択されたメニュー：" + select_drink_menu.name)
 
-        print("---------------")
+    # 注文個数の取得
+    drink_count = input("個数を入力してください（3つ以上で1割引き）：")
 
-        # 注文個数をもとに合計金額の計算
-        food_result = select_food_menu.get_total_price(int(food_count))
-        drink_result = select_drink_menu.get_total_price(int(drink_count))
-        print("合計は" + str(food_result + drink_result) + "円です")
+    print("---------------")
 
-    else:
-        print("error：正しい値を入力してください")
-else:
-    print("error：正しい値を入力してください")
+    # 注文個数をもとに合計金額の計算
+    food_result = select_food_menu.get_total_price(int(food_count))
+    drink_result = select_drink_menu.get_total_price(int(drink_count))
+    print("合計は" + str(food_result + drink_result) + "円です")
+
+except Exception as e:
+    print(e)

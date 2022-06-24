@@ -1,8 +1,8 @@
 # メニュー番号がインスタンスリスト要素数内であるかチェックする関数
 def validate(val, max):
     if 0 <= val <= max:
-        return True
-    return False
+        return False
+    return True
 
 # Foodクラス、Drinkクラスのインスタンスリストを受け取り、メニュー表示を行う関数
 def view_menu_items(menu_items):
